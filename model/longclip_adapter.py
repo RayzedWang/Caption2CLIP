@@ -8,7 +8,6 @@ import math
 class ResidualAttentionBlock_DCAdapter(ResidualAttentionBlock):
     def __init__(self,d_model: int, n_head: int, attn_mask: torch.Tensor = None, Bi_adapter = None):
         super().__init__(d_model, n_head, attn_mask)
-        #self.adapter = MulConvAdapter(d_model, d_model//2, 192, 24, 96, 24, 96, skip_connect=True)
         self.adapter1 = MMadapter(None,hidden_size=d_model)
         self.gate1 = nn.Parameter(torch.tensor(0.6), requires_grad=True)
         self.adapter2 = MMadapter(Bi_adapter,hidden_size=d_model)
@@ -39,7 +38,6 @@ class Transformer_DCAdapter(Transformer):
 class VisionTransformer_DCAdapter(VisionTransformer):
     def __init__(self, input_resolution: int, patch_size: int, width: int, layers: int, heads: int, output_dim: int,Bi_adapter = None):
         super().__init__(input_resolution,patch_size,width,layers,heads,output_dim)
-        #print(Bi_adapter)
         self.transformer = Transformer_DCAdapter(width, layers, heads,Bi_adapter=Bi_adapter)
 
 class CLIP_DCAdapter(CLIP):
@@ -133,10 +131,6 @@ def build_adapter_model(state_dict: dict, load_from_clip: bool, adapter_type="co
             del state_dict[key]
 
     convert_weights(model)
-    if adapter_type == 'Geo_Bi':
-        clip_visual_keys = [k for k in state_dict.keys() if k.startswith("visual")]
-        for key in clip_visual_keys:
-            del state_dict[key]
     load_result = model.load_state_dict(state_dict,strict=False)
     return model.eval()
 
