@@ -1,0 +1,39 @@
+model:
+    longclippath: './longclipcheckpoint/longclip-B.pt'
+    embed:
+        embed_dim: 768
+    clipname: 'longclipadapter'
+    adapter_type: 'DC'
+    name: 'ret3_fg_Detail_adapter'
+dataset:
+    datatype: rsitmd
+    data_split:
+    data_path: '/RET3/'
+    image_path_train: '/RET3/Ret-3_train/'
+    detail_path_train: '/RET3/QWVLTrainImgDetail.txt'
+    image_path_test: '/RET3/Ret-3_test/'
+    detail_path_test: '/RET3/QWVLTestImgDetail.txt'
+    word_path_train: '/RET3/Train_nouns_qwen.txt'
+    word_path_test: '/RET3/Test_nouns_qwen.txt'
+    batch_size: 13
+    batch_size_val: 64
+    workers: 3
+optim:
+    epochs: 40
+    warmup: 1
+    lr: 0.0004
+    lr_decay_param: 0.5
+    lr_update_epoch: 8
+    grad_clip: 0
+    max_violation: 0
+    margin: 0.15
+    resume: False
+logs:
+    eval_step: 1
+    print_freq: 10
+    ckpt_save_path: "./snapshots/"
+    logger_name: 'logs/'
+k_fold:
+    experiment_name: 'rsitmd_aba_mv'
+    nums: 5
+    current_num: 0
