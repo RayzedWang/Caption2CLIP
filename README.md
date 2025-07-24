@@ -10,6 +10,27 @@
     - Word level
   - Gate sum with original features
 
+## DatasetCaption
+
+### Available Datasets
+
+#### Flickr30k
+- Contains 31,000 images with 5 queries each
+- Format: Each image has 5 descriptive queries
+
+#### COCO2017
+- Microsoft Common Objects in Context (COCO) 2017 version
+- Contains ~123,000 images with multiple queries each
+- Original source: [COCO Dataset](https://cocodataset.org/)
+- Includes both training and validation splits
+
+#### RET3
+- Get from RemoteCLIP
+
+### Access
+Dataset can be accessed directly from Hugging Face:
+[`datasets.load_dataset("rayzedwang/dataset_caption")`](https://huggingface.co/datasets/rayzedwang/dataset_caption)
+
 ## Credit
 
 - 1 AMFMN:  
